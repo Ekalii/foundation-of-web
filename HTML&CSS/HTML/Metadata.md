@@ -1,0 +1,34 @@
+# Meta Data
+---
+
+## HTML, Head
+* html태그 안에는 head, body 태그가 온다
+* head태그 안에는 문서의 정보 - 문서제목, 스타일 등...
+* body태그 안에는 문서의 구조
+
+## Meta
+* 빈 태그
+* name, content, charset, http-equiv 등의 속성이 있다
+* 기타 정보 포함
+* https://developer.mozilla.org/ko/docs/Web/HTML/Element/meta
+
+## Link
+* 빈 태그
+* css파일을 연결
+* https://developer.mozilla.org/ko/docs/Web/HTML/Element/link
+
+## Style
+* 내부에서 css 작성
+* body 태그 안에서도 동작하지만 효율적이지 않음
+
+## Base
+* 빈 태그
+* link 같은 경로사용 태그 위에 작성
+* 상대경로의 기준 URL 작성 - 범위: <strong>문서 전체</strong>
+* 문서 안에서 <strong>한번만</strong> 사용 가능
+* img 태그에서도 사용 가능
+* https://developer.mozilla.org/ko/docs/Web/HTML/Element/base
+
+### Mime type
+* text/css, text/javascript, img/png 등...
+* https://developer.mozilla.org/ko/docs/Web/HTTP/Basics_of_HTTP/MIME_types
