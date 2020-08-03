@@ -5,3 +5,20 @@ hr {
 	border: none;
 	border-top: 2px dashed red;
 }
+a {
+	font-weight: bold;
+	width: 100px;
+	line-height: 40px;
+	height: 40px;
+	border: 1px solid black;
+	border-radius: 6px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+}
+a:hover {
+	background: orange;
+}
+h2 {
+	padding-bottom: 1000px; 
+}
