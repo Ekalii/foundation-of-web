@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>이미지</title>
+</head>
+<body>
+	<img src="./heropy.webp" alt="HEROPY" />
+	<img 
+		srcset="./heropy_small.webp 400w, ./heropy_medium.webp 700w, ./heropy_large.webp 1000w"
+		width="400"
+		src="./heropy.webp"
+		alt="heropy" 
+	/>
+	<img 
+		srcset="./heropy_small.webp 400w, ./heropy_medium.webp 700w, ./heropy_large.webp 1000w"
+		sizes="(min-width: 1000px) 700px"
+		src="./heropy.webp"
+		alt="heropy" 
+	/>
+	<img 
+		srcset="./heropy_small.webp 400w, ./heropy_medium.webp 700w, ./heropy_large.webp 1000w"
+		sizes="500px"
+		src="./heropy.webp"
+		alt="heropy" 
+	/>
+</body>
+</html>
