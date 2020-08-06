@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Table exmaple</title>
+	<link rel="stylesheet" type="text/css" href="./main.css">
+</head>
+<body>
+	<table>
+		<tr>
+			<th colspan="2" id="th-data">데이터</th>
+		</tr>
+		<tr>
+ 			<th abbr="Type" scope="col" headers="th-data">타입</th>
+			<th abbr="Value" scope="col" headers="th-data">값</th>
+		</tr>
+		<tr>
+			<td>알파벳</td>
+			<td>A</td>
+		</tr>
+		<tr>
+			<td>숫자</td>
+			<td>7</td>
+		</tr>
+	</table>
+	<table>
+		<caption>데이터 타입과 값</caption>
+		<tr>
+			<th rowspan="2" id="th-data-2">데이터</th>
+			<th headers="th-data-2" id="th-type">타입</th>
+			<td headers="th-type">알파벳</td>
+			<td headers="th-type">숫자</td>
+		</tr>
+		<tr>
+			<th headers="th-data-2" id="th-value">값</th>
+			<td headers="th-value">A</td>
+			<td headers="th-value">7</td>
+		</tr>
+	</table>
+	<table>
+		<caption>데이터 타입과 값</caption>
+		<colgroup>
+			<col>
+			<col style="background-color: tomato;" span="2">
+		</colgroup>
+		<tr>
+			<th></th>
+			<th>Type</th>
+			<th>Value</th>
+		</tr>
+		<tr>
+			<th>1</th>
+			<td>Alphabet</td>
+			<td>A</td>
+		</tr>
+		<tr>
+			<th>2</th>
+			<td>Number</td>
+			<td>7</td>
+		</tr>
+	</table>
+	<table>
+    	<caption>Fruits</caption>
+    	<colgroup>
+	    	<col span="2" style="background-color: yellowgreen;">
+	    	<col style="background-color: tomato;">
+  		</colgroup>
+  		<thead>
+	    	<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Price</th>
+		    </tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>F123A</td>
+				<td>Apple</td>
+				<td>$22</td>
+	    	</tr>
+	    	<tr>
+  				<td>F098B</td>
+	      		<td>Banana</td>
+	      		<td>$19</td>
+	    	</tr>
+	  	</tbody>
+	</table>
+</body>
+</html>
