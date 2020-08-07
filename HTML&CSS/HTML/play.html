@@ -47,12 +47,21 @@
 	<h2 id="title2">제목2</h2>
 	<canvas id="canvas" width="200" height="150"></canvas>
 	<script>
-		const canvas = document.getElementIdBy('canvas');
+		const canvas = document.getElementById('canvas');
 		const ctx = canvas.getContext('2d');
 		ctx.fillStyle = 'rgb(200, 0, 0)';
 		ctx.fillRect(10, 10, 50, 50);
 		ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
 		ctx.fillRect(30, 30, 50, 50);
 	</script>
+	<hr />
+	<div id="me" data-my-name="ekalii" data-my-age="231" draggable="true">Ekalii</div>
+	<script>
+		const me = document.getElementById('me');
+		console.log(me.dataset.myName);
+		console.log(me.dataset.myAge);
+	</script>
+	Hello&nbsp;&nbsp;&nbsp;world!<br />
+	&lt;div&gt;&lt;/div&gt;
 </body>
 </html>
