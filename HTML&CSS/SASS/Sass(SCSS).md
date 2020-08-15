@@ -36,7 +36,7 @@
 * Colors: 색상 표현 - `red`, `blue`, `#FFFF00`, `rgba(255,255,0,.5)` ...
 * Booleans: 논리 - `true`, `false`
 * Nulls: 아무것도 없음 - `null`
-	* `null`이 사용되면 컴파일하지 않음
+	* `null`이 사용되면 컴파일하지 않음(속성을 사용하지 않음)
 * Lists: 공백이나 `,`로 구분된 값의 목록 - `(apple, banana, orange)`, `apple orange` ...
 	* Javascript 배열과 유사
 	* `()`는 필수가 아님
@@ -579,3 +579,213 @@ SCSS
 	};
 }
 ```
+
+### Extend(확장)
+* 특성 선택자아 다른 선태자의 모든 스타일을 가져야 하는 경우에 사용
+* `@extend 선택자`
+SCSS
+```scss
+.btn {
+	padding: 10px;
+	margin: 10px;
+	background: blue;
+}
+.btn-danger {
+	@extend .btn;
+	background: red;
+}
+```
+CSS
+```css
+.btn, .btn-danger {
+  padding: 10px;
+  margin: 20px;
+  background: blue;
+}
+
+.btn-danger {
+  background: red;
+}
+```
+`,`로 구분하는 다중 선택자가 만들어짐(주의!!)
+	* 내 현재 선택자(`.btn-danger`)가 어디에 첨부될 것인지
+		* <ins>중첩이 있으면 상위 요소 선택자들도 모두 불러오므로 주의!!</ins>
+	* 원치 않는 부작용이 초래 될 수 있는지
+	* 이 한번의 확장으로 얼마나 큰 CSS가 생성되는지
+
+> `@extend`는 **부작용**이 초래될 수 있으니 **`@mixin` 사용을 권장한다**
+
+### Function(함수)
+* 자신의 함수를 정의하여 사용할 수 있다
+* Mixin과 함수는 유사하지만 반환되는 내용이 다르다
+* **`@return`지시어를 통해 값을 반환한다**
+* **`@include` 같은 지시어 없이 사용하기 때문에 작성한 함수와 내장함수의 이름이 충돌 할 수 있다**
+	* ex) `red()`라는 내장함수가 있는대 같은 이름으로 함수를 만들면 충돌!!
+	* 작성한 함수에는 `extract-`나, `my-custom-function-` 접두어를 붙여도 좋다
+		* `extract-red()`
+		* `my-custom-function-red()`
+	* 내장 함수가 매우 많아 기억하기 어려움
+```scss
+//mixin
+@mixin name($param) {
+	style;
+}
+
+//function
+@function 함수이름($매개변수) {
+	@return 값
+}
+```
+* 사용법
+```scss
+//mixin
+@include mixin-name(arg);
+
+//function, ()는 인수가 없어도 필수!!
+function-name(arg);
+```
+
+* <ins>`@mixin`처럼 기본값, 키워드 인수 등이 사용 가능</ins>
+```
+@function columns($number: 1, $columns: 12, $width: 1200px) {
+  @return $width * ($number / $columns);
+}
+
+.container{
+	$width: 1200px;
+	width: $width;
+	.item:nth-child(1){
+		width: columns(1);
+	}
+	.item:nth-child(2){
+    	width: columns(8);
+	}
+	.item:nth-child(3){
+		width: columns($width: $width);
+	}
+}
+```
+
+### 조건과 반복
+#### if (함수)
+* 조건의 값에 따라 두개의 표현식 중 하나만 반환
+* **JS의 삼항연산자와 유사**
+```scss
+// true면 표현식1, false면 표현식2
+if(조건, 표현식1, 표현식2)
+```
+
+#### @if (지시어)
+* 조건에 따른 분기 처리 가능
+* **JS의 if문과 유사**
+* `@else`, `@else if` 사용 가능
+* <ins>조건에 `()`는 생략할 수 있다 - 편리함</ins>
+```scss
+$bg: true;
+div {
+	@if bg {
+		background: orange;
+	}
+}
+```
+
+### @for
+* 스타일을 반복적으로 출력
+* **JS for문과 유사**
+* **`through`를 사용하는 형식과 `to`를 사용하는 형식으로 나뉜다**
+```scss
+// through
+// 종료만큼 반복
+@for $변수 from 시작 through 종료 {
+	// 반복내용
+}
+
+// to
+// 종료 직전까지 반복
+@for $변수 from 시작 to 종료 {
+	// 반복내용
+}
+```
+
+> 변수는 관례상 `$i`, `$index`를 사용한다
+
+```scss
+// 1부터 3번 반복
+@for $i from 1 through 3 {
+	.item:nth-child(#{$i}) {
+		width: 20px * $i
+	}
+}
+
+// 6부터 10직전까지 반복(6, 7, 8, 9)
+// 프로그래밍 언어에서 쓰는 반복문 개념과 유사
+@for $i from 6 to 10 {
+	.item:nth-child(#{$i}) {
+		width: 20px * $i
+	}
+}
+```
+
+### @each
+* List와 Map 데이터를 반복할 때 사용
+* **JS for of 문과 유사**
+```scss
+@each $변수 in $ListData(MapData) {
+	// 반복 내용
+}
+```
+* List Data 사용 예제
+```scss
+$fruits: (apple, orange, banana, mango); // List Data
+
+.fruits {
+	@each $fruit in $fruits {
+    	// built-in function finds element's index
+		$index: index($fruits, $fruit);
+		li:nth-child(#{$index}) {
+      		left: 50px * $index;
+      		background: url("img/#{$fruit}.png");
+		}
+	}
+}
+```
+
+* Map Data 사용 예제
+```scss
+$fruits: (
+	apple: red,
+	orange: orange,
+	banana: yellow,
+);
+
+// $key, $value
+@each $fruit, $color in $fruits {
+	// map-keys($fruits) -> (apple, orange, banana)
+	// map-values($fruits) -> (red, orange, yellow)
+	$fruits-data-key-list: map-keys($fruits);
+	$index: index($fruits-data-key-list, $fruit);
+	.box-#{$fruit} {
+		width: 100px * $index;
+    	background: $color;
+	}
+}
+```
+
+### @while
+* `@while`의 조건이 `false`로 평가될 때까지 내용 반복
+* **JS의 while문과 유사**
+* <ins>무한루프에 빠질 수도 있음! **사용 권장하지 않음**</ins>
+```scss
+@while 조건 {
+	// 반복 내용
+}
+```
+
+> 조건이 명확하지 않을 때에는 `@for`, `@each`를 사용하자!!
+
+### Built-in Functions (내장 함수)
+* https://sass-lang.com/documentation/modules 에서 모든 내장함수 확인 가능
+* `[]`는 선택 가능한 인수(argument)
+* **Zero-base numbering을 사용하지 않음**
+* 외우려고 하지 말자
+* 이런 기능을 가진 함수가 있었는대..하면서 구글링하면 나온다
