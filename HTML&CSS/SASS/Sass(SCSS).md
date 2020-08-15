@@ -740,11 +740,11 @@ $fruits: (apple, orange, banana, mango); // List Data
 
 .fruits {
 	@each $fruit in $fruits {
-    	// built-in function finds element's index
+		// built-in function finds element's index
 		$index: index($fruits, $fruit);
 		li:nth-child(#{$index}) {
-      		left: 50px * $index;
-      		background: url("img/#{$fruit}.png");
+			left: 50px * $index;
+			background: url("img/#{$fruit}.png");
 		}
 	}
 }
